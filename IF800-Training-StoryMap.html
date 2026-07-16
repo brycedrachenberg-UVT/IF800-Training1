@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IF800 Tomcat: Complete Training Module</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-orange: oklch(68% 0.18 50);
+  --brand-orange-dim: oklch(58% 0.14 50);
+  --dark-bg: oklch(15% 0.008 50);
+  --darker-bg: oklch(10% 0.006 50);
+  --light-bg: oklch(96% 0.004 50);
+  --cream-bg: oklch(94% 0.006 60);
+  --text-primary: oklch(20% 0.005 50);
+  --text-secondary: oklch(40% 0.008 50);
+  --text-light: oklch(88% 0.005 50);
+  --text-dim: oklch(65% 0.008 50);
+  --warning-bg: oklch(92% 0.04 60);
+  --danger-bg: oklch(92% 0.04 25);
+  --info-bg: oklch(92% 0.03 240);
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 48px;
+  --space-2xl: 80px;
+  --space-3xl: 120px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--light-bg);
+  font-optical-sizing: auto;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Sora', system-ui, sans-serif;
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-3xl) var(--space-xl);
+  background: var(--darker-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 70% 80%, oklch(20% 0.03 50 / 0.4), transparent);
+}
+
+.hero-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-orange);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 800;
+  color: var(--text-light);
+  max-width: 900px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sub {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--text-dim);
+  max-width: 600px;
+  margin-top: var(--space-lg);
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+
+.hero-media-note {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  background: oklch(20% 0.01 50 / 0.6);
+  border: 1px solid oklch(40% 0.02 50 / 0.3);
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ═══════════ CHAPTER DIVIDERS ═══════════ */
+.chapter {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-3xl) var(--space-xl);
+  background: var(--dark-bg);
+  position: relative;
+}
+
+.chapter-number {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 800;
+  color: var(--brand-orange);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.chapter h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  color: var(--text-light);
+  max-width: 700px;
+}
+
+.chapter-desc {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 550px;
+  margin-top: var(--space-md);
+  font-weight: 300;
+}
+
+/* ═══════════ NARRATIVE SECTIONS ═══════════ */
+.narrative {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg);
+}
+
+.narrative p {
+  margin-bottom: var(--space-lg);
+  color: var(--text-primary);
+}
+
+.narrative p:last-child { margin-bottom: 0; }
+
+.narrative h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-lg);
+  color: var(--text-primary);
+}
+
+.narrative h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+}
+
+/* ═══════════ MEDIA PLACEHOLDERS ═══════════ */
+.media-slot {
+  margin: var(--space-xl) 0;
+  background: var(--cream-bg);
+  border-radius: 12px;
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  border: 2px dashed oklch(75% 0.02 50 / 0.5);
+}
+
+.media-slot-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand-orange);
+  margin-bottom: var(--space-sm);
+}
+
+.media-slot-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Full-width media slot */
+.media-slot-full {
+  margin: var(--space-xl) 0;
+  background: var(--darker-bg);
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  border-radius: 0;
+}
+
+.media-slot-full .media-slot-label { color: var(--brand-orange); }
+.media-slot-full .media-slot-desc { color: var(--text-dim); }
+
+/* ═══════════ CALLOUTS ═══════════ */
+.callout {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg) var(--space-lg);
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.callout-warning {
+  background: var(--warning-bg);
+  border: 1px solid oklch(80% 0.06 60);
+}
+
+.callout-danger {
+  background: var(--danger-bg);
+  border: 1px solid oklch(80% 0.06 25);
+}
+
+.callout-info {
+  background: var(--info-bg);
+  border: 1px solid oklch(80% 0.04 240);
+}
+
+.callout-tag {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.callout-warning .callout-tag { color: oklch(50% 0.15 60); }
+.callout-danger .callout-tag { color: oklch(50% 0.15 25); }
+.callout-info .callout-tag { color: oklch(45% 0.12 240); }
+
+/* ═══════════ SPECS TABLE ═══════════ */
+.spec-table {
+  width: 100%;
+  margin: var(--space-xl) 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.spec-table th {
+  text-align: left;
+  padding: var(--space-md) var(--space-md);
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 2px solid oklch(80% 0.01 50);
+}
+
+.spec-table td {
+  padding: var(--space-md) var(--space-md);
+  border-bottom: 1px solid oklch(90% 0.005 50);
+  color: var(--text-primary);
+}
+
+.spec-table td:first-child {
+  font-weight: 500;
+}
+
+/* ═══════════ STEPS ═══════════ */
+.step-list {
+  list-style: none;
+  counter-reset: steps;
+  margin: var(--space-xl) 0;
+}
+
+.step-list li {
+  counter-increment: steps;
+  padding: var(--space-lg) 0;
+  padding-left: 56px;
+  position: relative;
+  border-bottom: 1px solid oklch(90% 0.005 50);
+}
+
+.step-list li:last-child { border-bottom: none; }
+
+.step-list li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0;
+  top: var(--space-lg);
+  font-family: 'Sora', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--brand-orange);
+  width: 40px;
+  text-align: center;
+}
+
+/* ═══════════ SIDECAR LAYOUT ═══════════ */
+.sidecar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 60vh;
+}
+
+.sidecar-media {
+  background: var(--cream-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  border-right: 1px solid oklch(88% 0.005 50);
+}
+
+.sidecar-text {
+  padding: var(--space-2xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 55ch;
+}
+
+.sidecar-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.sidecar-text p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+/* ═══════════ TOC ═══════════ */
+.toc {
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.toc h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid oklch(88% 0.005 50);
+}
+
+.toc-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--brand-orange);
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.toc-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.toc-sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ═══════════ CLOSING ═══════════ */
+.closing {
+  background: var(--darker-bg);
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+}
+
+.closing h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--text-light);
+  margin-bottom: var(--space-lg);
+}
+
+.closing p {
+  color: var(--text-dim);
+  max-width: 50ch;
+  margin: 0 auto var(--space-md);
+  font-weight: 300;
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 768px) {
+  .hero { padding: var(--space-2xl) var(--space-lg); }
+  .chapter { padding: var(--space-2xl) var(--space-lg); min-height: 50vh; }
+  .narrative { padding: var(--space-xl) var(--space-md); }
+  .sidecar { grid-template-columns: 1fr; }
+  .sidecar-media { min-height: 300px; border-right: none; border-bottom: 1px solid oklch(88% 0.005 50); }
+  body { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <span class="hero-eyebrow">Inspired Flight Technologies / UVT Training Module</span>
+  <h1>IF800 Tomcat: Zero to Hero</h1>
+  <p class="hero-sub">Everything you need to know to unbox, assemble, fly, and plan autonomous mapping missions with the IF800 and Sentera 65R.</p>
+  <div class="hero-media-note">[ INSERT: Hero video or cinematic still of IF800 in flight ]</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+     ═══════════════════════════════════════════════════════ -->
+<section class="toc">
+  <h3>What You'll Learn</h3>
+  <div class="toc-item">
+    <span class="toc-num">01</span>
+    <div><div class="toc-title">Meet the IF800</div><div class="toc-sub">Platform overview, who built it, and why it matters</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">02</span>
+    <div><div class="toc-title">IB388 Smart Batteries</div><div class="toc-sub">Charging, LED status, storage, transport, and hot swapping</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">03</span>
+    <div><div class="toc-title">Assembly & Setup</div><div class="toc-sub">From the transport case to flight-ready in under 5 minutes</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">04</span>
+    <div><div class="toc-title">Flight Operations</div><div class="toc-sub">Controls, modes, pre-flight, takeoff, landing, and emergencies</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">05</span>
+    <div><div class="toc-title">Mission Planning with IGC</div><div class="toc-sub">Survey missions, corridor scans, terrain following, RTK corrections</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">06</span>
+    <div><div class="toc-title">High-Accuracy Mapping with the Sentera 65R</div><div class="toc-sub">RTK/PPK workflows, coverage planning, and data processing</div></div>
+  </div>
+  <div class="toc-item">
+    <span class="toc-num">07</span>
+    <div><div class="toc-title">Maintenance & Continuing Education</div><div class="toc-sub">Inspection schedules, wear items, and where to find help</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 01: MEET THE IF800
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">01</span>
+  <h2>Meet the IF800 Tomcat</h2>
+  <p class="chapter-desc">A medium-lift, NDAA-compliant quadcopter built for inspection, mapping, and LiDAR survey. Designed and manufactured in the USA.</p>
+</section>
+
+<div class="narrative">
+  <h3>The Company Behind It</h3>
+  <p>Inspired Flight Technologies was founded in 2017 in San Luis Obispo, California. They started as a UAV motor and speed-controller manufacturer, committed to American manufacturing from day one. That same obsession with component quality led them to build complete aircraft platforms, and today IFT is a leader in the domestic sUAS landscape: NDAA-compliant, Blue UAS listed, trusted by government and enterprise.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IFT company overview / brand introduction clip</div>
+  </div>
+
+  <h3>What Makes the IF800 Different</h3>
+  <p>About 40% of IF800 customers fly it strictly for mapping, whether that's photogrammetry or multispectral remote sensing. Another 30 to 40% combine mapping with LiDAR. The platform was designed for these workloads: fast, stable, long-endurance, with tool-free payload swapping so you can switch between a Sentera 65R, a multispectral camera, and a LiDAR kit without returning to the shop.</p>
+
+  <p>The result is an aircraft that fits into existing surveying and GIS workflows, not one that forces you to rebuild yours around it.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">IF800 in transport case showing complete kit: aircraft, GCS, batteries, payload</div>
+  </div>
+
+  <h3>Specifications at a Glance</h3>
+  <table class="spec-table">
+    <thead><tr><th>Specification</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Max Flight Time (no payload)</td><td>54 minutes</td></tr>
+      <tr><td>Usable Flight Time (Sentera 65R)</td><td>~40 minutes</td></tr>
+      <tr><td>Max Payload Capacity</td><td>3.0 kg (6.6 lb)</td></tr>
+      <tr><td>Max Air Speed</td><td>49 mph (22 m/s)</td></tr>
+      <tr><td>Max Wind Resistance</td><td>19 kt sustained / 23 kt gusts</td></tr>
+      <tr><td>Weight with Batteries</td><td>8.5 kg (18.7 lb)</td></tr>
+      <tr><td>Folded Size</td><td>36 x 44 x 20 cm</td></tr>
+      <tr><td>Operating Temp</td><td>-10&deg;C to 45&deg;C (14&deg;F to 113&deg;F)</td></tr>
+      <tr><td>Compliance</td><td>NDAA, Blue UAS, American made</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The Flight Stack</h3>
+  <p>Under the hood, the IF800 runs ArduPilot Copter on a CubePilot Cube Blue H7 flight controller with triple-redundant IMUs. It has dual CubePilot Here4 GNSS/compass modules for positioning, and a LightWare SF000/B downward rangefinder for ground sensing. There's also an onboard FPV camera for real-time pilot situational awareness.</p>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Critical Safety Note</span>
+    The IF800 has no obstacle avoidance. The only ground-facing sensor is the downward rangefinder. Maintain visual line of sight at all times, plan altitudes with obstacles in mind, and remember that RTL does not follow terrain.
+  </div>
+
+  <h3>The IFT Ecosystem</h3>
+  <p>The IF800 doesn't exist in isolation. It's part of a complete ecosystem:</p>
+  <p><strong>Aircraft:</strong> IF800 Tomcat (medium lift) and IF1200A (heavy lift).</p>
+  <p><strong>Controllers:</strong> GS-ONE or Herelink Blue, both running Inspired Ground Control (IGC).</p>
+  <p><strong>Software:</strong> IGC for primary flight control and mission planning, QGroundControl Desktop for laptop-based planning, Mission Planner for diagnostics, and UgCS for advanced mission planning.</p>
+  <p><strong>Payloads:</strong> Sony ILX-LR1, Sentera 65R / 6X / 6XT Pro, Phase One, MicaSense, Gremsy VIO, LiDAR kits, and the Sentera RTK module.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Ecosystem diagram showing aircraft, controllers, software, and payloads</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 02: BATTERIES
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">02</span>
+  <h2>IB388 Smart Batteries</h2>
+  <p class="chapter-desc">Hot-swappable, American-made intelligent batteries with internal BMS, cell balancing, and NFC status reporting. The power system you need to understand first.</p>
+</section>
+
+<div class="narrative">
+  <h3>Battery Basics</h3>
+  <p>The IF800 uses two IB388 batteries simultaneously. They're LiHV (lithium high-voltage) cells in a 6S1P configuration with an internal Battery Management System. Each pack holds 17,000 mAh of capacity (387.6 Wh of energy), weighs 2.08 kg, and communicates with the aircraft via DroneCAN plus NFC status through the PilotGo app.</p>
+
+  <table class="spec-table">
+    <thead><tr><th>Specification</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Chemistry</td><td>LiHV, 6S1P with internal BMS</td></tr>
+      <tr><td>Capacity / Energy</td><td>17,000 mAh / 387.6 Wh</td></tr>
+      <tr><td>Nominal Voltage</td><td>22.8 V (26.1 V at 100%)</td></tr>
+      <tr><td>Max Discharge</td><td>40 A continuous / 55 A burst</td></tr>
+      <tr><td>Weight</td><td>2.08 kg each</td></tr>
+      <tr><td>Life Expectancy</td><td>150 to 300 cycles</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The Golden Rules</h3>
+  <p>These four rules will keep your batteries healthy and your flights safe:</p>
+  <p><strong>1. Keep batteries in pairs.</strong> Charge them together, fly them together. Always.</p>
+  <p><strong>2. Match charge levels.</strong> A flight pair must be within 2 to 3% charge of each other before install.</p>
+  <p><strong>3. Wake before install.</strong> Press the status button and verify flashing green before sliding a battery into the aircraft.</p>
+  <p><strong>4. Store at 40% charge.</strong> Target ~3.8 V/cell (22.2 to 23.4 V pack voltage) for long-term storage.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IB388 battery overview: physical orientation, status button location, LED indicator positions</div>
+  </div>
+
+  <h3>Understanding the LEDs</h3>
+  <p>The IB388 communicates its state through a single LED. Learn to read it at a glance:</p>
+
+  <table class="spec-table">
+    <thead><tr><th>LED State</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>No LEDs lit</td><td>Sleep mode: press the status button to wake</td></tr>
+      <tr><td>Flashing green</td><td>Awake and active: ready to install and fly</td></tr>
+      <tr><td>Solid blue</td><td>Charging normally</td></tr>
+      <tr><td>Flashing blue</td><td>Cell balancing (during charge) or self-discharging to storage voltage</td></tr>
+      <tr><td>Flashing red</td><td>Fault state (normal during hot swap): press button to clear</td></tr>
+      <tr><td>Solid red</td><td>Active fault: press button to reset; if persistent, contact IFT Support</td></tr>
+    </tbody>
+  </table>
+
+  <p>The only acceptable pre-flight states are flashing green or solid blue. State of charge is shown by the number of LED flashes. Use NFC via PilotGo for exact percentages.</p>
+
+  <h3>Charging with the IMARS D300</h3>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IB388 Battery Charging walkthrough (IFT YouTube)</div>
+  </div>
+
+  <ol class="step-list">
+    <li>Plug the D300 charger into a 120 VAC outlet. Confirm the screen reads IDLE.</li>
+    <li>Wake the battery: press the status button until the LED flashes green.</li>
+    <li>Plug the yellow XT60 cable into the CHA port on the D300.</li>
+    <li>Connect the IB388 to the charge cable. Confirm the IB388 pop-up on screen (Up arrow, then Enter).</li>
+    <li>Verify charging: the battery LED turns solid blue (flashing blue means cell balancing, which is normal).</li>
+    <li>Charging is complete when the charger returns to IDLE. Then disconnect.</li>
+  </ol>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Warning</span>
+    Never unplug an IB388 from the charger unless the D300 screen states IDLE. Disconnecting mid-charge can damage the battery. To stop early, cancel on the charger first, then disconnect.
+  </div>
+
+  <p>Charge time from 30 to 40%: approximately 1 hour to full. One battery per charger. The on-screen charge percentage can be inaccurate: trust the IDLE state, NFC readings, and LED indicators.</p>
+
+  <h3>Storage & Transportation</h3>
+  <p><strong>Storage:</strong> Auto self-discharge begins after 72 hours idle (the LED blinks blue). A full battery can take up to 4 days to reach storage level. Store in a fireproof lithium container, 10 to 30&deg;C, away from sunlight and moisture. Cycle-charge at least once every 3 months. Retire any battery below 80% state of health or with case damage.</p>
+
+  <div class="callout callout-warning">
+    <span class="callout-tag">Transport Rules</span>
+    Remove batteries from the aircraft before transport. These batteries exceed 160 Wh (UN3480), meaning no commercial passenger flights. Ground shipping only: ship them ahead when flying to a job site. DOT shipping requires packs below 22.8 V (approximately 30% charge), terminals taped, batteries isolated, UN3480 sticker on the case.
+  </div>
+
+  <h3>Hot Swapping Batteries</h3>
+  <p>Hot swapping keeps the aircraft powered so you can resume a waypoint mission exactly where you left off. This is how you extend coverage beyond a single battery set without losing your mission progress.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">Hot swap procedure demonstration</div>
+  </div>
+
+  <ol class="step-list">
+    <li>Land and disarm the aircraft, then unlock the batteries.</li>
+    <li>Remove ONE discharged battery. One must stay in to keep the aircraft powered.</li>
+    <li>Wake the first fresh battery (press center button) and insert it.</li>
+    <li>Remove the second discharged battery. Flashing red is normal here: press its button to clear.</li>
+    <li>Wake and insert the second fresh battery.</li>
+    <li>Soft-reboot the aircraft from IGC: IFT icon > Vehicle Settings > Parameters > Tools > Reboot.</li>
+  </ol>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Do Not</span>
+    Power off the aircraft or the GCS during a hot swap. The soft reboot reconnects ArduPilot to the new batteries without cutting power or resetting your payload. After the swap, verify both battery indicators in IGC are healthy. If either shows red, reboot the aircraft again.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 03: ASSEMBLY
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">03</span>
+  <h2>Assembly & Setup</h2>
+  <p class="chapter-desc">From the transport case to flight-ready. This process takes under five minutes once you've done it a few times.</p>
+</section>
+
+<div class="media-slot-full">
+  <div class="media-slot-label">Video</div>
+  <div class="media-slot-desc">IF800 Assembly (IFT YouTube): full procedure with close-ups of each step</div>
+</div>
+
+<div class="narrative">
+  <h3>Unboxing to Airframe</h3>
+  <ol class="step-list">
+    <li>Open the transport case. Locate the aircraft, Quick Start Guide, controller, charger, and payload.</li>
+    <li>Power on the controller first.</li>
+    <li>Remove the 2 landing gear supports from the case lid. Insert them into the sockets under the aircraft until the retention buttons click.</li>
+    <li>Holding the landing gear supports, lift the aircraft from the foam and set it upright on flat, level ground.</li>
+    <li>Remove the arm handles and store them in the case.</li>
+    <li>Extend each arm outward until the Autolock engages.</li>
+    <li>Fully unfold each propeller set, perpendicular to the arm.</li>
+  </ol>
+
+  <div class="callout callout-warning">
+    <span class="callout-tag">The Orange Line Rule</span>
+    After extending each arm, adjust the Autolock until a continuous orange line forms between the Autolock handle and the arm body. An unbroken orange line means a fully locked, secure arm. If the line is broken or misaligned, the arm is NOT locked.
+  </div>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Close-up photo showing orange line alignment on a properly locked arm vs. an improperly locked arm</div>
+  </div>
+
+  <h3>Payload, Batteries, Power On</h3>
+  <ol class="step-list">
+    <li>Secure the ratchet lever on each landing gear support: rotate clockwise until snug.</li>
+    <li>Install the payload onto the damping plate. The Midweight Pro Damping Kit supports 0 to 3 kg payloads in 4 preset positions with tool-free swapping.</li>
+    <li>Press each battery's status button. Verify both are flashing green.</li>
+    <li>Slide an IB388 into each battery channel.</li>
+    <li>Rotate each battery latch 90&deg; to horizontal to lock.</li>
+    <li>Press the aircraft power button to power on.</li>
+  </ol>
+
+  <h3>Disassembly</h3>
+  <p>Reverse the process: power off the aircraft, remove batteries, fold props flat, release Autolocks and fold arms down (rear arms first), remove landing gear supports. Return the aircraft to the case bottom-side-up, nose facing outward.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Aircraft properly stowed in transport case showing orientation and component placement</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 04: FLIGHT OPERATIONS
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">04</span>
+  <h2>Flight Operations</h2>
+  <p class="chapter-desc">Controls, flight modes, pre-flight checks, takeoff and landing, failsafes, and emergency procedures. This is where confidence gets built.</p>
+</section>
+
+<div class="narrative">
+  <h3>Controls Overview</h3>
+  <p>The IF800 uses Mode 2 stick layout (standard across most platforms):</p>
+  <p><strong>Left stick:</strong> Throttle (up/down) and Yaw (left/right).</p>
+  <p><strong>Right stick:</strong> Pitch (forward/back) and Roll (left/right).</p>
+  <p>Use only IFT's pre-configured flight-mode buttons. Never select other modes from the on-screen dropdown in IGC.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Controller diagram showing stick functions and mode buttons for both GS-ONE and Herelink</div>
+  </div>
+
+  <h3>Flight Modes</h3>
+  <p>You'll use these modes in daily operations:</p>
+
+  <table class="spec-table">
+    <thead><tr><th>Mode</th><th>Behavior</th><th>When to Use</th></tr></thead>
+    <tbody>
+      <tr><td>Loiter</td><td>Holds GPS position and altitude. Release the stick and it stops immediately. Max 15 m/s.</td><td>Slow, precise flying. Takeoff and landing. Default mode.</td></tr>
+      <tr><td>Position Hold</td><td>GPS position and altitude with responsive controls. Release the stick and it decelerates, then holds.</td><td>Faster repositioning, longer transit legs.</td></tr>
+      <tr><td>Auto</td><td>Executes the uploaded waypoint mission.</td><td>Autonomous survey and corridor flights.</td></tr>
+      <tr><td>RTL</td><td>Returns to takeoff location and lands automatically.</td><td>Bringing it home. Emergency fallback.</td></tr>
+      <tr><td>Land</td><td>Descends vertically while holding horizontal position.</td><td>Landing in place.</td></tr>
+      <tr><td>Altitude Hold</td><td>Holds altitude only. No GPS position holding.</td><td>Automatic failsafe if GPS is lost.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IF800 Flight Modes (IFT YouTube): demonstrations of each mode in action</div>
+  </div>
+
+  <h4>Mode Selection by Controller</h4>
+  <table class="spec-table">
+    <thead><tr><th>Mode</th><th>GS-ONE</th><th>Herelink</th></tr></thead>
+    <tbody>
+      <tr><td>Loiter</td><td>F or N position (rocker switch)</td><td>A button</td></tr>
+      <tr><td>Position Hold</td><td>S position (rocker switch)</td><td>B button</td></tr>
+      <tr><td>Return to Launch</td><td>RTL button</td><td>Home button</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Danger</span>
+    Always keep RTL, Loiter, and Position Hold mapped to physical buttons. Flying without instant access to these modes is unacceptably risky.
+  </div>
+
+  <h3>RTL and Smart RTL</h3>
+  <p><strong>Standard RTL:</strong> Climbs to 30 m (100 ft) RTL altitude (or stays higher if already above it), flies straight back to the takeoff location, and lands. RTL does NOT follow terrain: it returns at constant altitude. Check the Safety tab in Vehicle Setup because previous pilots may have changed this value.</p>
+  <p><strong>Smart RTL:</strong> Retraces the flight path home. Use this near very tall structures like 400+ ft towers. Takes longer than standard RTL, so it's not recommended below 60% battery. Once clear of obstacles, you can switch from Smart RTL to standard RTL.</p>
+  <p><strong>To regain manual control from RTL:</strong> Press A or B on the Herelink, use the GS-ONE mode rocker, or select Loiter/Position Hold in IGC.</p>
+
+  <h3>Pre-Flight Checklist</h3>
+  <p>Run this checklist before every flight. No exceptions.</p>
+
+  <h4>Aircraft: Physical Inspection</h4>
+  <ol class="step-list">
+    <li>Landing gear pinned, thumb screws tight.</li>
+    <li>Prop locks removed; blades fully extended and perpendicular to arms.</li>
+    <li>Arms locked: orange indicators aligned (unbroken orange line).</li>
+    <li>Payload locked and tightened on damping plate.</li>
+    <li>Batteries matched in charge, both active (flashing green or solid blue), latches rotated to horizontal.</li>
+    <li>Launch area is level, clear of hazards and personnel.</li>
+  </ol>
+
+  <h4>Systems: GCS & Telemetry</h4>
+  <ol class="step-list">
+    <li>Controller battery at 50% or above. Antennas and joysticks attached. Remote ID tab checked.</li>
+    <li>IGC open. Parameters loaded. Telemetry link is live.</li>
+    <li>GPS is healthy: HDOP below 1.0.</li>
+    <li>Attitude indicator and compass direction match the aircraft's actual orientation.</li>
+    <li>Video feed is clear. Payload responds to tilt/pan commands.</li>
+    <li>IGC reports "Ready to Fly." Rear aircraft lights are flashing green.</li>
+    <li>On arming: confirm all 4 motors spool up before applying throttle.</li>
+  </ol>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IF800 Pre-Flight Checklist walkthrough (IFT YouTube)</div>
+  </div>
+
+  <div class="callout callout-warning">
+    <span class="callout-tag">Caution</span>
+    While the aircraft and controller are powered, keep your hands off the controller sticks to avoid accidental arming.
+  </div>
+
+  <h3>Power On, Arm & Takeoff</h3>
+  <ol class="step-list">
+    <li>Clear all personnel to 15 to 20 feet. Power on the aircraft and step back.</li>
+    <li>Listen for ESC startup tones and the autopilot boot tone. Confirm parameters download on IGC.</li>
+    <li>Verify failsafes are configured for your mission. Battery should be at 50% or above (or mission-sufficient). Set flight mode to Loiter.</li>
+    <li>Arm the aircraft: pull the left stick down and to the right. Motors spin at idle.</li>
+    <li>Hold low throttle and confirm all 4 props are spinning in the correct direction.</li>
+    <li>Take off: raise the throttle above the midpoint. The aircraft lifts off. Always face the aircraft away from you.</li>
+  </ol>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Tip-Over Recovery</span>
+    If the aircraft begins to tip on takeoff: immediately lower throttle and disarm. Causes are typically a prop installed on the wrong motor, or props not fully unfolded.
+  </div>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IF800 Takeoff & Landing / RTL (IFT YouTube)</div>
+  </div>
+
+  <h3>Landing & Disarming</h3>
+  <h4>Manual Landing (Loiter or Position Hold)</h4>
+  <p>Choose a level landing site clear of obstructions. The max descent speed is 3 m/s, and there's no downward sensor that stops the descent, so descend deliberately. Lower throttle completely until the aircraft has settled on the ground. Disarm by holding the left stick straight down until the props stop.</p>
+
+  <h4>Automated Landing (RTL or Mission End)</h4>
+  <p>The aircraft returns to the launch point and descends slowly. You can nudge the sticks to reposition over your landing pad during descent. Auto missions disarm automatically on touchdown. IFT recommends landing manually in Loiter when possible for maximum control.</p>
+
+  <p><strong>After every flight:</strong> visually inspect propellers, legs, batteries, and motors before disassembly.</p>
+
+  <h3>Battery Failsafes</h3>
+  <table class="spec-table">
+    <thead><tr><th>Battery Level</th><th>State</th><th>Automatic Action</th></tr></thead>
+    <tbody>
+      <tr><td>Below 15%</td><td>Critically low</td><td>Auto RTL engages regardless of current mode</td></tr>
+      <tr><td>Below 5%</td><td>Emergency low</td><td>Auto Land-in-Place engages</td></tr>
+      <tr><td>Below 1%</td><td>Critical</td><td>Total loss of control possible</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">One-Shot Rule</span>
+    Each failsafe fires only once. If you override it (by switching back to Loiter or Position Hold), it will NOT retrigger. If in doubt, manually RTL or land in Position Hold. Manual actions are often faster than automated modes.
+  </div>
+
+  <h3>Emergency: Loss of Control</h3>
+  <p><strong>Manual modes:</strong> Bring the sticks to center and let the aircraft recover itself.</p>
+  <p><strong>Auto modes:</strong> Switch to Position Hold or Loiter to regain control. Missions auto-pause on detected upsets.</p>
+  <p><strong>After recovery:</strong> Land gently, inspect, and identify the cause before flying again.</p>
+  <p><strong>Any crash or loss:</strong> Document the scene and notify IFT with flight logs.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 05: MISSION PLANNING
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">05</span>
+  <h2>Mission Planning with IGC</h2>
+  <p class="chapter-desc">Autonomous mission planning in Inspired Ground Control: surveys, corridors, terrain following, and safe automated flight.</p>
+</section>
+
+<div class="narrative">
+  <h3>What is IGC?</h3>
+  <p>Inspired Ground Control is IFT's purpose-built, NDAA-compliant GCS software. It runs on the GS-ONE and Herelink controllers. It's a branch of open-source QGroundControl, so the interface, Plan/Fly workflow, and .plan mission files are identical between IGC and QGC Desktop. This means you can plan missions on a laptop in the office and fly them from the controller in the field.</p>
+  <p>IGC doesn't need the aircraft connected to plan a mission. Only to upload it.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">IGC interface overview: annotated screenshot showing Fly/Plan tabs, toolbar items, and status indicators</div>
+  </div>
+
+  <h3>Planning a Survey Mission</h3>
+  <p>Surveys are the most common automated mission type. Here's the full workflow from blank map to uploaded plan:</p>
+
+  <h4>Step 1: Start a New Plan</h4>
+  <ol class="step-list">
+    <li>Open the Plan tab in IGC.</li>
+    <li>Clear any existing mission: File > Clear, confirm with "Yes."</li>
+    <li>Start the new plan: File > Survey. (Other types available: Blank for manual waypoints, Corridor Scan, Structure Scan.)</li>
+    <li>Select Mission Start and enter the mission altitude above your takeoff location.</li>
+  </ol>
+
+  <h4>Step 2: Shape the Survey Area</h4>
+  <ol class="step-list">
+    <li>Select Survey > Basic to drop a rectangular polygon on the map.</li>
+    <li>Drag the white vertices to match your site boundary.</li>
+    <li>Tap the + icons between vertices to add points for complex shapes.</li>
+    <li>Verify the survey altitude is high enough to clear all obstacles across the survey area.</li>
+    <li>If stitching images later (photogrammetry), check front and side overlap percentages.</li>
+  </ol>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">IGC Plan view showing a shaped survey polygon with green area, white flight path lines, and entry point arrow</div>
+  </div>
+
+  <h4>Step 3: Camera Setup</h4>
+  <ol class="step-list">
+    <li>Open the Camera tab under Survey settings.</li>
+    <li>Pick your camera profile (e.g., "Sentera 65R Sensor" for the 65R, or "ILX-LR1 35mm" for the Sony).</li>
+    <li>No preset available? Use Custom Camera and enter sensor size (mm), focal length, and image resolution.</li>
+    <li>Set front lap and side lap percentages. Or check Ground Resolution to have IGC calculate altitude for a target GSD.</li>
+  </ol>
+
+  <div class="callout callout-warning">
+    <span class="callout-tag">Photo Interval</span>
+    Keep the calculated photo interval above 1.0 second per photo. If it drops below that, the camera can stop shooting mid-mission. Slow down the flight speed or reduce overlap to compensate.
+  </div>
+
+  <h4>Step 4: Grid, Transects & Entry Point</h4>
+  <p>Fine-tune the survey pattern:</p>
+  <p><strong>Transect Angle:</strong> Rotates the flight-line direction across the polygon. Align with wind when possible.</p>
+  <p><strong>Turnaround Distance:</strong> How far beyond the polygon boundary the aircraft flies before turning (allows it to stabilize before the next pass).</p>
+  <p><strong>Rotate Entry Point:</strong> Changes which vertex the mission starts from. Position this closest to your takeoff location.</p>
+  <p><strong>90&deg; Cross Pattern:</strong> Flies the entire grid twice at perpendicular angles for denser coverage (doubles flight time).</p>
+
+  <h4>Step 5: Terrain Following (If Needed)</h4>
+  <p>For flat sites, the default "Relative to Launch" altitude mode works fine. For rolling or steep terrain:</p>
+  <ol class="step-list">
+    <li>Select the terrain tab (mountain icon) and choose "Calc Above Terrain."</li>
+    <li>Terrain data requires offline maps with elevation downloaded first.</li>
+    <li>Set tolerance, max climb rate, and max descent rate.</li>
+    <li>Review the altitude profile graph at the bottom of the screen: it shows the planned flight path following the ground contour.</li>
+  </ol>
+
+  <div class="callout callout-info">
+    <span class="callout-tag">Remember</span>
+    RTL does NOT follow terrain. After enabling terrain following for your survey, always verify that your RTL altitude is set higher than the tallest obstacle anywhere between your survey area and your launch point.
+  </div>
+
+  <h4>Step 6: Save & Upload</h4>
+  <ol class="step-list">
+    <li>Save your plan: File > Save As. This stores the .plan file on the controller or computer.</li>
+    <li>With the aircraft connected, tap Upload and wait for "Done."</li>
+    <li>From a desktop: connect via USB-C or the Herelink WiFi hotspot, upload to the aircraft, then download to the controller.</li>
+  </ol>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Save Your Missions</span>
+    If the aircraft reboots or IGC restarts, an unsaved plan collapses into simple waypoints and becomes very difficult to edit. Always save via the File button in the Plan tab before uploading.
+  </div>
+
+  <h3>Mission Speed</h3>
+  <p>WPNAV_SPEED is the parameter that sets the default AND maximum automated flight speed. The factory default is 600 cm/s (6 m/s, about 13.4 mph). You can change it through IFT icon > Vehicle Setup > Parameters > search "WPNAV." Units are in cm/s.</p>
+  <p>To set a specific mission speed: add a waypoint between your Takeoff waypoint and the survey, check the "Flight Speed" box, and enter your desired speed. The aircraft flies at that speed for the rest of the mission. Note: after a mid-mission restart (battery swap), the aircraft reverts to WPNAV_SPEED until it hits a speed waypoint again.</p>
+
+  <h3>Corridor Scans</h3>
+  <p>For linear features like roads, powerlines, or pipelines: select Corridor instead of Survey, then drag waypoints along the feature's path. Set the corridor width and camera settings exactly as you would for a survey. Add a speed-reference waypoint before the corridor to set your desired flight speed.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Corridor scan plan following a road alignment, showing the green scan area and flight path</div>
+  </div>
+
+  <h3>KML Import from Google Earth</h3>
+  <p>For complex site boundaries, draw the polygon in Google Earth Pro and Save Place As > .KML. Copy the file to the controller's QGroundControl > Mission folder via USB. In IGC, go to Plan > Survey, tap the KML/SHP button, and select your file. The polygon appears on the map. Verify altitude, speed, and camera settings, then upload.</p>
+
+  <h3>Flying the Mission</h3>
+  <ol class="step-list">
+    <li>Switch to the Fly tab and confirm "Ready to Fly."</li>
+    <li>Take off manually. Establish a stable hover at your mission altitude.</li>
+    <li>Slide to start the autonomous mission.</li>
+    <li>Monitor the flight: maintain VLOS, watch battery levels, be ready to intervene.</li>
+  </ol>
+
+  <p><strong>Mid-mission moves:</strong> Tap any waypoint on the map and slide to confirm to jump to it. To resume after a pause or battery hot swap: Action > Continue Mission from the selected waypoint.</p>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Brake Mode</span>
+    When you press Pause, the aircraft enters Brake Mode: it hovers and IGNORES manual stick commands. To regain manual control, press A (Loiter) on the Herelink or flip the GS-ONE mode rocker. If you're expecting stick response and getting nothing, you're probably still in Brake.
+  </div>
+
+  <h3>RTK Corrections with NTRIP</h3>
+  <p>For centimeter-level positioning accuracy during missions:</p>
+  <ol class="step-list">
+    <li>Ensure the GCS has internet access (WiFi, cellular hotspot, or phone tethering).</li>
+    <li>Tap the NTRIP widget (upper right corner) > Edit.</li>
+    <li>Enter your caster credentials (host, port, username, password). Default port is 2101.</li>
+    <li>Search and select the closest mount point to your location.</li>
+    <li>Tap Connect. Green widget = connected; yellow = reconnecting; red = not connected.</li>
+    <li>Verify GPS status shows RTK Float or RTK Fix. Fix is the higher-accuracy state.</li>
+  </ol>
+
+  <div class="callout callout-warning">
+    <span class="callout-tag">Plan Ahead</span>
+    Register for your corrections network account well in advance. Approval can take 1 day to 1 week depending on the provider. Do NOT attempt first-time NTRIP setup in the field.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 06: SENTERA 65R & HIGH-ACCURACY MAPPING
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">06</span>
+  <h2>High-Accuracy Mapping with the Sentera 65R</h2>
+  <p class="chapter-desc">RTK/PPK workflows, coverage planning, and why the 65R plus IF800 combination delivers professional survey-grade results.</p>
+</section>
+
+<div class="narrative">
+  <h3>Why the Sentera 65R?</h3>
+  <p>The 65R is a 65-megapixel global shutter camera that can fire 3 images per second. That capture rate, combined with the IF800's speed and endurance, means you're never limited by the camera. You're limited only by altitude, overlap requirements, and battery life.</p>
+  <p>At 400 ft AGL, the 65R delivers approximately 1.4 cm GSD. At 100 to 125 ft AGL, you get sub-quarter-inch GSD for crack detection and pavement inspection. In practical terms: 140 acres of stitchable 1.4 cm imagery in a single 40-minute flight at 75% overlap.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IF800 & Sentera 65R webinar segment: coverage examples and real-world results</div>
+  </div>
+
+  <h3>The Sentera RTK/PPK Module</h3>
+  <p>This is the separate hardware module that mounts on top of the aircraft. It exists as a distinct piece of hardware for three critical reasons:</p>
+
+  <h4>1. Direct GNSS Timing (PPS Synchronization)</h4>
+  <p>In a typical UAS system, there are tens of milliseconds of delay between when a photo is captured and when the GPS position is recorded. At 20 mph, that delay translates to positional error. The Sentera module uses Pulse Per Second (PPS) synchronization, where the GPS hardware talks directly to the camera. This reduces timing offset from tens of milliseconds to the nanosecond realm, giving you geotags that represent where the photo was actually taken, not where the aircraft was moments later.</p>
+
+  <h4>2. Raw GNSS Logging for PPK</h4>
+  <p>Post-Processed Kinematic (PPK) workflows require raw GNSS measurements from the receiver itself. These aren't available through standard MAVLink telemetry messages. By handling the GNSS logging in their own hardware, Sentera ensures all data is captured at the same time with PPS synchronization, rather than being logged separately and merged later with reduced accuracy.</p>
+
+  <h4>3. Flexible Correction Sources</h4>
+  <p>The module includes a built-in 915 MHz analog radio. This means you can get RTK corrections from NTRIP networks through the hand controller, from a local base station you already own (Trimble, Topcon, whatever), or from any device that outputs RTCM3 messages over USB. You're not locked into a proprietary base station or a single corrections workflow.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Close-up of the RTK/PPK module installed on top of the IF800, showing the dual-frequency antenna and radio</div>
+  </div>
+
+  <h3>RTK vs. PPK: When to Use Each</h3>
+  <p><strong>RTK (Real-Time Kinematic):</strong> Corrections stream to the aircraft in real time. Geotags are corrected as photos are taken. Best when you have reliable cellular/internet access or a nearby base station with radio link. Results are immediate.</p>
+  <p><strong>PPK (Post-Processed Kinematic):</strong> The module logs raw GNSS data during flight. After landing, you combine this data with base station logs (from a CORS network or your own base) in processing software. Best for remote locations without cell service, or when you want the flexibility to process against the optimal reference station after the fact.</p>
+  <p>Both workflows deliver 1 to 3 cm positioning accuracy. PPK is more forgiving of connectivity issues; RTK gives you confidence in real time.</p>
+
+  <h3>Coverage Planning</h3>
+  <table class="spec-table">
+    <thead><tr><th>Scenario</th><th>Altitude</th><th>GSD</th><th>Coverage (40 min, 75% overlap)</th></tr></thead>
+    <tbody>
+      <tr><td>Large area mapping</td><td>400 ft AGL</td><td>~1.4 cm</td><td>~140 acres</td></tr>
+      <tr><td>Infrastructure inspection</td><td>100-125 ft AGL</td><td>Sub 1/4 inch</td><td>Smaller sites, higher detail</td></tr>
+      <tr><td>Construction progress</td><td>200-300 ft AGL</td><td>~0.7-1.0 cm</td><td>~60-100 acres</td></tr>
+    </tbody>
+  </table>
+
+  <p>These numbers assume flight speeds of 20 to 31 mph. The 65R's 3 images/second capture rate handles speeds well beyond what Part 107 allows, so camera performance is never the bottleneck.</p>
+
+  <h3>Data Processing Workflow</h3>
+  <p>The Sentera ecosystem is deliberately open. Your captured data (geotagged images with centimeter-accurate positions) can be processed in any standard photogrammetry package:</p>
+  <p><strong>Pix4D, Agisoft Metashape, DroneDeploy, OpenDroneMap,</strong> or whatever your organization already uses. The RTK/PPK geotags mean you can often achieve survey-grade accuracy with fewer (or zero) ground control points, saving significant time on large sites.</p>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Image</div>
+    <div class="media-slot-desc">Example output: orthomosaic generated from IF800 + 65R data, showing sub-inch detail</div>
+  </div>
+
+  <h3>Other Sentera Sensors</h3>
+  <p>The RTK/PPK module also supports Sentera's multispectral cameras:</p>
+  <p><strong>6X:</strong> Standard 6-band multispectral for vegetation health, crop scouting, and NDVI analysis. Five images per second.</p>
+  <p><strong>6XT Pro:</strong> Replaces one filter with a 640x512 radiometric FLIR Boson thermal core for combined multispectral and thermal capture in a single flight.</p>
+  <p>The same IF800 airframe and damping kit supports all three sensors with tool-free payload swapping.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODULE 07: MAINTENANCE
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <span class="chapter-number">07</span>
+  <h2>Maintenance & Continuing Education</h2>
+  <p class="chapter-desc">Keep the aircraft safe and your skills sharp. Inspection schedules, wear items, and where to get help when you need it.</p>
+</section>
+
+<div class="narrative">
+  <h3>Inspection Schedule</h3>
+  <table class="spec-table">
+    <thead><tr><th>Interval</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>Every flight</td><td>Visual inspection of props, lenses, landing gear, motors. Check before and after.</td></tr>
+      <tr><td>25 flight hours</td><td>Clean motors with canned air. Check battery state of health via NFC in PilotGo.</td></tr>
+      <tr><td>50 flight hours</td><td>Inspect motors for rough bearings or play. Inspect and torque all visible screws.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Wear Item Limits</h3>
+  <p><strong>Propellers:</strong> Rated for 400 hours. Replace on any cracks, chips larger than 5 mm, or noticeable vibration.</p>
+  <p><strong>Motors:</strong> Rated for 1600 hours. Replace on rough bearings, shaft play, or burnt odor.</p>
+  <p><strong>Batteries:</strong> Retire below 80% state of health, after 150 to 300 cycles, or any case damage.</p>
+
+  <div class="callout callout-danger">
+    <span class="callout-tag">Prop Replacement Warning</span>
+    Each of the 4 propellers has a unique arm and orientation. Installing one on the wrong arm or backwards causes catastrophic failure on takeoff. When replacing props: torque M3x10 screws to 1.2 Nm with blue Loctite. Never touch the outer pivot screws.
+  </div>
+
+  <div class="media-slot">
+    <div class="media-slot-label">Video</div>
+    <div class="media-slot-desc">IF800 Prop Replacement (IFT YouTube): correct identification, orientation, and torque procedure</div>
+  </div>
+
+  <h3>Resources</h3>
+  <p><strong>IFT Knowledge Base:</strong> docs.inspiredflight.com. Your primary reference for procedures, troubleshooting, firmware updates, and detailed guides.</p>
+  <p><strong>YouTube:</strong> @InspiredFlightTechnologies. Workflow videos, setup walkthroughs, and feature tutorials.</p>
+  <p><strong>IFT Support:</strong> +1 (805) 776-3640, press 2 for Support. Monday through Friday, 7am to 5pm PT. Or submit a ticket through the Knowledge Base support portal.</p>
+
+  <h3>Recommended Viewing</h3>
+  <p>Before your first solo flight, watch these in order:</p>
+  <ol class="step-list">
+    <li>IF800 Assembly</li>
+    <li>IF800 Pre-Flight Checklist</li>
+    <li>IF800 Flight Modes</li>
+    <li>IF800 Takeoff & Landing / RTL</li>
+    <li>IB388 Battery Charging</li>
+    <li>Herelink Button Mapping (IF800 & IF1200)</li>
+    <li>IF800 Prop Replacement</li>
+  </ol>
+
+  <p>All available on the IFT YouTube channel. New tutorials post regularly. Subscribe and check before major missions.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CLOSING
+     ═══════════════════════════════════════════════════════ -->
+<section class="closing">
+  <h2>You're Ready.</h2>
+  <p>You've covered the platform, the batteries, the assembly, the flying, the mission planning, and the high-accuracy mapping workflow. The rest is practice.</p>
+  <p>Plan it. Check it. Fly it.</p>
+  <p style="margin-top: var(--space-xl); font-size: 0.8rem; color: var(--text-dim);">
+    IFT Support: +1 (805) 776-3640 (press 2) | Mon-Fri 7am-5pm PT<br>
+    Knowledge Base: docs.inspiredflight.com | YouTube: @InspiredFlightTechnologies
+  </p>
+</section>
+
+</body>
+</html>
